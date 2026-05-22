@@ -1,13 +1,16 @@
-from sqlalchemy import create_engine
-from sqlalchemy.orm import sessionmaker
+import os
+from supabase import create_client, Client
 
-DATABASE_URL = "postgresql://ryangibson:password@localhost:5432/shrk"
-engine = create_engine(DATABASE_URL)
+URL: str = os.getenv("SUPABASE_URL")
+KEY: str = os.getenv("SUPABASE_KEY")
 
-SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
+client: Client = create_client(
+    supabase_url=URL,
+    supabase_key=KEY,
+)
 
 def get_db():
-    db = SessionLocal()
+    # db = client.
     try:
         yield db
     finally:
